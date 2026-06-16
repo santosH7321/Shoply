@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
+/* Customer Layout */
 import Layout from "./components/Layout";
 
+/* Customer Pages */
 import Home from "./components/Home";
 import Shop from "./components/Shop";
 import ShopDetails from "./components/ShopDetails";
@@ -13,10 +15,22 @@ import Checkout from "./components/Checkout";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 
+/* Admin Layout */
+import AdminLayout from "./components/admin/AdminLayout";
+
+/* Admin Pages */
+import Dashboard from "./components/admin/Dashboard";
+import Products from "./components/admin/Products";
+import Orders from "./components/admin/Orders";
+import Users from "./components/admin/Users";
+
 function App() {
   return (
     <Routes>
-      {/* Home */}
+      {/* ========================= */}
+      {/* Customer Routes */}
+      {/* ========================= */}
+
       <Route
         path="/"
         element={
@@ -26,7 +40,6 @@ function App() {
         }
       />
 
-      {/* Shop */}
       <Route
         path="/shop"
         element={
@@ -36,7 +49,6 @@ function App() {
         }
       />
 
-      {/* Product Details */}
       <Route
         path="/products/:id"
         element={
@@ -46,7 +58,6 @@ function App() {
         }
       />
 
-      {/* Categories */}
       <Route
         path="/categories"
         element={
@@ -56,7 +67,6 @@ function App() {
         }
       />
 
-      {/* Deals */}
       <Route
         path="/deals"
         element={
@@ -66,7 +76,6 @@ function App() {
         }
       />
 
-      {/* Cart */}
       <Route
         path="/cart"
         element={
@@ -76,7 +85,6 @@ function App() {
         }
       />
 
-      {/* Wishlist */}
       <Route
         path="/wishlist"
         element={
@@ -86,7 +94,6 @@ function App() {
         }
       />
 
-      {/* Checkout */}
       <Route
         path="/checkout"
         element={
@@ -96,7 +103,6 @@ function App() {
         }
       />
 
-      {/* Auth */}
       <Route
         path="/login"
         element={
@@ -115,7 +121,50 @@ function App() {
         }
       />
 
-      {/* 404 */}
+      {/* ========================= */}
+      {/* Admin Routes */}
+      {/* ========================= */}
+
+      <Route
+        path="/admin"
+        element={
+          <AdminLayout>
+            <Dashboard />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/admin/products"
+        element={
+          <AdminLayout>
+            <Products />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminLayout>
+            <Orders />
+          </AdminLayout>
+        }
+      />
+
+      <Route
+        path="/admin/users"
+        element={
+          <AdminLayout>
+            <Users />
+          </AdminLayout>
+        }
+      />
+
+      {/* ========================= */}
+      {/* 404 Page */}
+      {/* ========================= */}
+
       <Route
         path="*"
         element={
