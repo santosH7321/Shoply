@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Heart,
   ShoppingCart,
@@ -9,32 +9,112 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
+import { useParams } from "react-router-dom";
 
-const product = {
-  id: 1,
-  name: "iPhone 16 Pro Max",
-  category: "Smartphones",
-  price: 1299,
-  oldPrice: 1499,
-  rating: 4.9,
-  reviews: 2847,
-  stock: "In Stock",
-  description:
-    "Experience the next generation smartphone with an advanced camera system, powerful performance, stunning display, and all-day battery life.",
-  images: [
-    "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1200",
-    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1200",
-    "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=1200",
-    "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=1200",
-  ],
-};
+const products = [
+  {
+    id: 1,
+    name: "iPhone 16 Pro Max",
+    category: "Smartphones",
+    price: 1299,
+    oldPrice: 1499,
+    rating: 4.9,
+    reviews: 2847,
+    stock: "In Stock",
+    description:
+      "Experience the next generation smartphone with an advanced camera system, powerful performance, stunning display, and all-day battery life.",
+    images: [
+      "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=1200",
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1200",
+      "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=1200",
+      "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=1200",
+    ],
+  },
+  {
+    id: 2,
+    name: "MacBook Pro M4",
+    category: "Laptops",
+    price: 2499,
+    oldPrice: 2799,
+    rating: 4.8,
+    reviews: 1984,
+    stock: "In Stock",
+    description:
+      "The most powerful MacBook ever built with the latest M4 chip.",
+    images: [
+      "https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=1200",
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1200",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200",
+      "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=1200",
+    ],
+  },
+  {
+    id: 3,
+    name: "Sony WH-1000XM5",
+    category: "Audio",
+    price: 399,
+    oldPrice: 499,
+    rating: 4.7,
+    reviews: 1320,
+    stock: "In Stock",
+    description:
+      "Industry-leading noise cancellation with exceptional sound quality.",
+    images: [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=1200",
+      "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=1200",
+      "https://images.unsplash.com/photo-1577174881658-0f30ed549adc?w=1200",
+    ],
+  },
+  {
+    id: 4,
+    name: "Apple Watch Ultra",
+    category: "Wearables",
+    price: 799,
+    oldPrice: 899,
+    rating: 4.8,
+    reviews: 967,
+    stock: "In Stock",
+    description:
+      "Built for adventure with precision GPS and advanced health tracking.",
+    images: [
+      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200",
+      "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=1200",
+      "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=1200",
+      "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=1200",
+    ],
+  },
+];
 
 const ShopDetails = () => {
+  const { id } = useParams();
+
+  const product = products.find(
+    (item) => item.id === Number(id)
+  );
+
   const [selectedImage, setSelectedImage] = useState(
-    product.images[0]
+    product?.images?.[0] || ""
   );
 
   const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    if (product) {
+      setSelectedImage(product.images[0]);
+      setQuantity(1);
+    }
+  }, [product]);
+
+  if (!product) {
+    return (
+      <div className="py-20 text-center">
+        <h1 className="text-3xl font-bold text-slate-900">
+          Product Not Found
+        </h1>
+      </div>
+    );
+  }
 
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -52,7 +132,12 @@ const ShopDetails = () => {
       productName: product.name,
       quantity,
       price: product.price,
+      total: product.price * quantity,
     });
+  };
+
+  const handleWishlist = () => {
+    console.log("Wishlist Product:", product);
   };
 
   return (
@@ -177,7 +262,10 @@ const ShopDetails = () => {
                 Add To Cart
               </button>
 
-              <button className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-6 py-4 font-semibold text-slate-700 transition hover:bg-slate-100">
+              <button
+                onClick={handleWishlist}
+                className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-6 py-4 font-semibold text-slate-700 transition hover:bg-slate-100"
+              >
                 <Heart size={20} />
                 Wishlist
               </button>

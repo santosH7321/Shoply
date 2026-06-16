@@ -1,4 +1,5 @@
 import { Heart, ShoppingCart, Star, Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const products = [
   {
@@ -58,6 +59,14 @@ const products = [
 ];
 
 const Shop = () => {
+  const handleAddToCart = (product) => {
+    console.log("Add To Cart:", product);
+  };
+
+  const handleWishlist = (product) => {
+    console.log("Wishlist:", product);
+  };
+
   return (
     <section className="py-10">
       <div className="mx-auto max-w-7xl">
@@ -98,19 +107,19 @@ const Shop = () => {
             All
           </button>
 
-          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:border-violet-600 hover:text-violet-600">
+          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-violet-600 hover:text-violet-600">
             Electronics
           </button>
 
-          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:border-violet-600 hover:text-violet-600">
+          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-violet-600 hover:text-violet-600">
             Fashion
           </button>
 
-          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:border-violet-600 hover:text-violet-600">
+          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-violet-600 hover:text-violet-600">
             Audio
           </button>
 
-          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 hover:border-violet-600 hover:text-violet-600">
+          <button className="rounded-xl border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-700 transition hover:border-violet-600 hover:text-violet-600">
             Furniture
           </button>
         </div>
@@ -122,46 +131,58 @@ const Shop = () => {
               key={product.id}
               className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl"
             >
-              {/* Image */}
-              <div className="relative overflow-hidden bg-slate-100">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
-                />
-
-                <button className="absolute right-4 top-4 rounded-xl bg-white p-2 shadow-md">
-                  <Heart size={18} />
-                </button>
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <p className="text-sm text-violet-600">
-                  {product.category}
-                </p>
-
-                <h3 className="mt-2 text-lg font-bold text-slate-900">
-                  {product.name}
-                </h3>
-
-                <div className="mt-3 flex items-center gap-1">
-                  <Star
-                    size={16}
-                    className="fill-yellow-400 text-yellow-400"
+              {/* Clickable Area */}
+              <Link to={`/products/${product.id}`}>
+                {/* Product Image */}
+                <div className="relative overflow-hidden bg-slate-100">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-64 w-full object-cover transition duration-300 group-hover:scale-110"
                   />
-
-                  <span className="text-sm text-slate-600">
-                    {product.rating}
-                  </span>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between">
-                  <h4 className="text-2xl font-bold text-slate-900">
+                {/* Product Info */}
+                <div className="p-5">
+                  <p className="text-sm text-violet-600">
+                    {product.category}
+                  </p>
+
+                  <h3 className="mt-2 text-lg font-bold text-slate-900">
+                    {product.name}
+                  </h3>
+
+                  <div className="mt-3 flex items-center gap-1">
+                    <Star
+                      size={16}
+                      className="fill-yellow-400 text-yellow-400"
+                    />
+
+                    <span className="text-sm text-slate-600">
+                      {product.rating}
+                    </span>
+                  </div>
+
+                  <h4 className="mt-4 text-2xl font-bold text-slate-900">
                     ${product.price}
                   </h4>
+                </div>
+              </Link>
 
-                  <button className="rounded-xl bg-violet-600 p-3 text-white transition hover:bg-violet-700">
+              {/* Actions */}
+              <div className="px-5 pb-5">
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleWishlist(product)}
+                    className="rounded-xl border border-slate-200 p-3 transition hover:bg-slate-100"
+                  >
+                    <Heart size={18} />
+                  </button>
+
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="flex flex-1 items-center justify-center rounded-xl bg-violet-600 py-3 text-white transition hover:bg-violet-700"
+                  >
                     <ShoppingCart size={18} />
                   </button>
                 </div>

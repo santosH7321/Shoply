@@ -6,6 +6,7 @@ import {
   ShoppingBag,
   ArrowRight,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const initialCartItems = [
   {
@@ -228,21 +229,22 @@ const Cart = () => {
                 </div>
               </div>
 
-              <button
+              <Link
+                to="/checkout"
                 onClick={() =>
-                  console.log({
+                    console.log({
                     cartItems,
                     subtotal,
                     shipping,
                     tax,
                     total,
-                  })
+                    })
                 }
-                className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 py-4 font-semibold text-white transition hover:bg-violet-700"
-              >
-                Proceed To Checkout
-                <ArrowRight size={18} />
-              </button>
+                    className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 py-4 font-semibold text-white transition hover:bg-violet-700"
+                    >
+                    Proceed To Checkout
+                    <ArrowRight size={18} />
+                </Link>
             </div>
           </div>
         </div>

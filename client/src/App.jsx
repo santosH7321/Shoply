@@ -8,6 +8,7 @@ import ShopDetails from "./components/ShopDetails";
 import Categories from "./components/Categories";
 import Deals from "./components/Deals";
 import Cart from "./components/Cart";
+import Wishlist from "./components/Wishlist";
 import Checkout from "./components/Checkout";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -75,6 +76,16 @@ function App() {
         }
       />
 
+      {/* Wishlist */}
+      <Route
+        path="/wishlist"
+        element={
+          <Layout>
+            <Wishlist />
+          </Layout>
+        }
+      />
+
       {/* Checkout */}
       <Route
         path="/checkout"
@@ -104,7 +115,7 @@ function App() {
         }
       />
 
-      {/* 404 Page */}
+      {/* 404 */}
       <Route
         path="*"
         element={
@@ -121,13 +132,6 @@ function App() {
               <p className="mt-3 text-slate-600">
                 The page you are looking for does not exist.
               </p>
-
-              <a
-                href="/"
-                className="mt-8 rounded-xl bg-violet-600 px-6 py-3 font-semibold text-white transition hover:bg-violet-700"
-              >
-                Back To Home
-              </a>
             </div>
           </Layout>
         }
